@@ -36,8 +36,14 @@ await loginManager.federatedLogin({
   connection: "google-oauth2",
 });
 
-// Optional: open country code picker for phone-based login
+// Optional: pick a country code for phone-based login
 await loginManager.pickCountryCode();
+
+// Read active identifiers
+const identifiers = loginManager.getLoginIdentifiers();
+
+// Retrieve transaction errors
+const errors = loginManager.getErrors();
 ```
 </RequestExample>
 
@@ -73,8 +79,6 @@ Creates an instance of the Login screen manager.
 - **Signature:** `new Login(): Login`  
 - **Defined in:** `src/screens/login/index.ts:34`  
 - **Overrides:** `BaseContext.constructor`
-
-**Example:**
 
 <RequestExample>
 ```ts
@@ -182,7 +186,7 @@ await loginManager.pickCountryCode();
 
 // With options
 await loginManager.pickCountryCode({
-  // custom options
+  // custom options...
 });
 ```
 </RequestExample>
@@ -199,9 +203,7 @@ Gets the active identifier types for the login screen.
 import Login from "@auth0/auth0-acul-js/login";
 
 const loginManager = new Login();
-
 const identifiers = loginManager.getLoginIdentifiers();
-// e.g. ["username", "email", "phone_number"]
 ```
 
 ---
@@ -217,16 +219,13 @@ Returns transaction errors from the context.
 import Login from "@auth0/auth0-acul-js/login";
 
 const loginManager = new Login();
-
 const errors = loginManager.getErrors();
-if (errors.length > 0) {
-  console.error(errors);
-}
 ```
 
 ---
 
 # Summary
 
-The `Login` class is the primary interface for performing username/password and federated login inside the Universal Login experience. It exposes contextual data, utility helpers, and customization points. `<RequestExample>` blocks feed the right-hand code panel to create a Stripe-style API reference page.
+The `Login` class is the primary interface for performing username/password and federated login in Universal Login.  
+Using `<RequestExample>` blocks ensures Stripe-style right-hand code samples are displayed for each method.
 
