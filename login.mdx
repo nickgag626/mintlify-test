@@ -1,0 +1,232 @@
+---
+title: "Login"
+description: "Login screen manager for username/password and social authentication in Auth0 Universal Login."
+---
+
+# Login
+
+The `Login` class is the main screen manager for the Universal Login **Login** experience.  
+It provides methods for:
+
+- Username/password login  
+- Social / federated login  
+- Country code selection for phone inputs  
+- Reading tenant, client, user, and transaction context  
+- Retrieving transaction errors  
+- Reading active login identifiers  
+
+Defined in:  
+`src/screens/login/index.ts:26`  
+https://github.com/auth0/universal-login/blob/5c054686de6099ea69493d68134be65604477bb6/packages/auth0-acul-js/src/screens/login/index.ts#L26
+
+<RequestExample>
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+// Username/password login
+await loginManager.login({
+  username: "testUser",
+  password: "testPassword",
+});
+
+// Social / federated login
+await loginManager.federatedLogin({
+  connection: "google-oauth2",
+});
+
+// Optional: open country code picker for phone-based login
+await loginManager.pickCountryCode();
+```
+</RequestExample>
+
+---
+
+## Import
+
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+```
+
+---
+
+## Class signature
+
+```ts
+class Login extends BaseContext implements LoginMembers
+```
+
+- **Extends:** `BaseContext`  
+- **Implements:** `LoginMembers`
+
+---
+
+# Constructor
+
+## `new Login()`
+
+Creates an instance of the Login screen manager.
+
+- **Signature:** `new Login(): Login`  
+- **Defined in:** `src/screens/login/index.ts:34`  
+- **Overrides:** `BaseContext.constructor`
+
+**Example:**
+
+<RequestExample>
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+```
+</RequestExample>
+
+---
+
+# Static Properties
+
+## `screenIdentifier: string`
+
+Static identifier for the Login screen.
+
+- **Default:** `ScreenIds.LOGIN`  
+- **Defined in:** `src/screens/login/index.ts:27`  
+- **Overrides:** `BaseContext.screenIdentifier`
+
+---
+
+# Instance Properties
+
+| Property        | Type                         | Defined In                                | Notes                             |
+| -------------- | ---------------------------- | ----------------------------------------- | --------------------------------- |
+| `branding`     | `BrandingMembers`            | `src/models/base-context.ts:23`           | Inherited from `BaseContext`      |
+| `client`       | `ClientMembers`              | `src/models/base-context.ts:28`           | Inherited                         |
+| `organization` | `OrganizationMembers`        | `src/models/base-context.ts:27`           | Inherited                         |
+| `prompt`       | `PromptMembers`              | `src/models/base-context.ts:26`           | Inherited                         |
+| `screen`       | `ScreenMembersOnLogin`       | `src/screens/login/index.ts:28`           | Overrides `BaseContext.screen`    |
+| `tenant`       | `TenantMembers`              | `src/models/base-context.ts:25`           | Inherited                         |
+| `transaction`  | `TransactionMembersOnLogin`  | `src/screens/login/index.ts:29`           | Overrides `BaseContext.transaction` |
+| `untrustedData`| `UntrustedDataMembers`       | `src/models/base-context.ts:31`           | Inherited                         |
+| `user`         | `UserMembers`                | `src/models/base-context.ts:30`           | Inherited                         |
+
+---
+
+# Methods
+
+---
+
+## `login(payload): Promise<void>`
+
+Performs username/password login.
+
+- **Parameter:**  
+  - `payload: LoginPayloadOptions`  
+- **Defined in:** `src/screens/login/index.ts:55`
+
+<RequestExample>
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+await loginManager.login({
+  username: "testUser",
+  password: "testPassword",
+});
+```
+</RequestExample>
+
+---
+
+## `federatedLogin(payload): Promise<void>`
+
+Performs login using a social provider.
+
+- **Parameter:**  
+  - `payload: FederatedLoginPayloadOptions`  
+- **Defined in:** `src/screens/login/index.ts:72`
+
+<RequestExample>
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+await loginManager.federatedLogin({
+  connection: "google-oauth2",
+});
+```
+</RequestExample>
+
+---
+
+## `pickCountryCode(payload?): Promise<void>`
+
+Opens or sets the country code selection UI.
+
+- **Parameter:**  
+  - `payload?: CustomOptions`  
+- **Defined in:** `src/screens/login/index.ts:87`
+
+<RequestExample>
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+// Without options
+await loginManager.pickCountryCode();
+
+// With options
+await loginManager.pickCountryCode({
+  // custom options
+});
+```
+</RequestExample>
+
+---
+
+## `getLoginIdentifiers(): ScreenIdentifierType[] | null`
+
+Gets the active identifier types for the login screen.
+
+- **Defined in:** `src/screens/login/index.ts:110`
+
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+const identifiers = loginManager.getLoginIdentifiers();
+// e.g. ["username", "email", "phone_number"]
+```
+
+---
+
+## `getErrors(): Error[]`
+
+Returns transaction errors from the context.
+
+- **Defined in:** `src/models/base-context.ts:99`  
+- **Inherited from:** `BaseContext`
+
+```ts
+import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+const errors = loginManager.getErrors();
+if (errors.length > 0) {
+  console.error(errors);
+}
+```
+
+---
+
+# Summary
+
+The `Login` class is the primary interface for performing username/password and federated login inside the Universal Login experience. It exposes contextual data, utility helpers, and customization points. `<RequestExample>` blocks feed the right-hand code panel to create a Stripe-style API reference page.
+
