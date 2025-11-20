@@ -1,0 +1,84 @@
+import { MethodBlock } from "../components/MethodBlock";
+
+---
+
+title: "Login"
+description: "Login screen manager for username/password and social authentication in Auth0 Universal Login."
+---
+
+# Login
+
+The `Login` class is the primary screen manager for the Universal Login **Login** experience…
+
+## Methods
+
+<MethodBlock
+  name="login"
+  signature="login(payload: LoginPayloadOptions): Promise<void>"
+  code={`import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+await loginManager.login({
+  username: "testUser",
+  password: "testPassword",
+});`}
+>
+  Performs username/password login.
+
+  **Parameters**
+
+  - `payload: LoginPayloadOptions` — The login options containing username and password.
+
+  **Returns**
+
+  - `Promise<void>`
+</MethodBlock>
+
+<MethodBlock
+  name="federatedLogin"
+  signature="federatedLogin(payload: FederatedLoginPayloadOptions): Promise<void>"
+  code={`import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+await loginManager.federatedLogin({
+  connection: "google-oauth2",
+});`}
+>
+  Performs login with a social provider.
+
+  **Parameters**
+
+  - `payload: FederatedLoginPayloadOptions` — The social login options containing connection name.
+
+  **Returns**
+
+  - `Promise<void>`
+</MethodBlock>
+
+<MethodBlock
+  name="pickCountryCode"
+  signature="pickCountryCode(payload?: CustomOptions): Promise<void>"
+  code={`import Login from "@auth0/auth0-acul-js/login";
+
+const loginManager = new Login();
+
+// Without options
+await loginManager.pickCountryCode();
+
+// With options
+await loginManager.pickCountryCode({
+  // custom options...
+});`}
+>
+  Picks a country code for the phone number input.
+
+  **Parameters**
+
+  - `payload?: CustomOptions` — Optional custom options.
+
+  **Returns**
+
+  - `Promise<void>`
+</MethodBlock>
